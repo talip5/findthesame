@@ -36,18 +36,18 @@ bool buttonState3 = true;
 bool buttonState4 = true;
 bool buttonState5 = true;
 
-int buttonNumber0 = 0;
-int buttonNumber1 = 1;
-int buttonNumber2 = 2;
-int buttonNumber3 = 3;
-int buttonNumber4 = 4;
-int buttonNumber5 = 5;
+int buttonNumber0=0;
+int buttonNumber1=1;
+int buttonNumber2=2;
+int buttonNumber3=3;
+int buttonNumber4=4;
+int buttonNumber5=5;
 
 String selectedCount1 = '';
 String selectedCount2 = '';
 int selectedCount = 0;
-int selectedButtonNumber1 = 0;
-int selectedButtonNumber2 = 0;
+int  selectedButtonNumber1=0;
+int  selectedButtonNumber2=0;
 
 int listNumber = 0;
 Random random = Random();
@@ -58,36 +58,8 @@ int count = 0;
 List<String> selectedList = [];
 List<int> list = [];
 List<int> listRandomSelected = [];
-List<int> listRandomControl = [];
-List<String> listFinish = [];
 
 class PositionedTilesState extends State<PositionedTiles> {
-  int i = 0;
-  int randomRange = 3;
-
-  listRandom1() {
-    for (i = 1; i <= randomRange; i++) {
-      listNumber = random.nextInt(15);
-      if (i == 1) {
-        listRandomControl.add(listNumber);
-        list.add(listNumber);
-        list.add(listNumber);
-      } else {
-        listRandomControl.forEach((element) {
-          print('$i element $element');
-          if (element != listNumber) {
-            print('listNumber $listNumber');
-          } else {
-            setState(() {
-              randomRange++;
-            });
-            print('ayni');
-          }
-        });
-      }
-    }
-    print('list $list');
-  }
 
   listRandom() {
     for (int i = 1; i <= 3; i++) {
@@ -100,43 +72,19 @@ class PositionedTilesState extends State<PositionedTiles> {
   listReduce() {
     int cycle = 6;
     for (int k = 1; k <= cycle; k++) {
-      if (list.isNotEmpty) {
-        count = list.length;
-        int value = random.nextInt(count);
-        int listValue = list[value];
-        listRandomSelected.add(listValue);
-        list.removeAt(value);
-      }
+      count = list.length;
+      int value = random.nextInt(count);
+      int listValue = list[value];
+      listRandomSelected.add(listValue);
+      list.removeAt(value);
     }
-    print('listRandomSelected $listRandomSelected');
+    print(listRandomSelected);
   }
 
   randomSpeed() {
     //int valueRandom = random1.nextInt(100-80);  // 0 -19
     int valueRandom = random1.nextInt(10) + 80;
     print(valueRandom);
-  }
-
-  delayed(@required bool buttonState, Color color, String label) {
-    Future.delayed(Duration(seconds: 3), () {
-      buttonState = true;
-      color = Colors.green;
-      label = '';
-      switchState(selectedButtonNumber1);
-      selectedList = [];
-    });
-  }
-
-  newGame() {
-    setState(() {
-      selectedList = [];
-      list = [];
-      listRandomSelected = [];
-      setUp();
-      listRandom();
-      listReduce();
-      listFinish = [];
-    });
   }
 
   @override
@@ -168,18 +116,18 @@ class PositionedTilesState extends State<PositionedTiles> {
     buttonState4 = true;
     buttonState5 = true;
 
-    buttonNumber0 = 0;
-    buttonNumber1 = 1;
-    buttonNumber2 = 2;
-    buttonNumber3 = 3;
-    buttonNumber4 = 4;
-    buttonNumber5 = 5;
+    buttonNumber0=0;
+    buttonNumber1=1;
+    buttonNumber2=2;
+    buttonNumber3=3;
+    buttonNumber4=4;
+    buttonNumber5=5;
 
     selectedCount1 = '';
     selectedCount2 = '';
     selectedCount = 0;
-    selectedButtonNumber1 = 0;
-    selectedButtonNumber2 = 0;
+    selectedButtonNumber1=0;
+    selectedButtonNumber2=0;
   }
 
   @override
@@ -203,32 +151,65 @@ class PositionedTilesState extends State<PositionedTiles> {
                     selectedCount = selectedList.length;
                     if (selectedCount == 1) {
                       selectedCount1 = label0;
-                      selectedButtonNumber1 = 0;
+                      selectedButtonNumber1=0;
                     } else if (selectedCount == 2) {
                       selectedCount2 = label0;
-                      selectedButtonNumber2 = 0;
+                      selectedButtonNumber2=0;
                       if (selectedCount1 == selectedCount2) {
                         print('Ayni');
                         print(selectedCount1 + '   ' + selectedCount2);
-                        Future.delayed(Duration(seconds: 2), ()
-                        {
-                          listFinish.add(selectedCount1);
-                          listFinish.add(selectedCount2);
-                          if (listFinish.length == 6) {
-                            newGame();
-                          }
-                        });
                         selectedList = [];
                       } else {
-                        Future.delayed(Duration(seconds: 2), () {
-                          setState(() {
-                            buttonState0 = true;
-                            color0 = Colors.green;
-                            label0 = '';
-                            switchState(selectedButtonNumber1);
-                            selectedList = [];
-                          });
-                        });
+                        buttonState0 = true;
+                        color0 = Colors.green;
+                        label0 = '';
+                        switch (selectedButtonNumber1) {
+                          case (0):
+                            {
+                              buttonState0 = true;
+                              color0 = Colors.green;
+                              label0 = '';
+                            }
+                            break;
+                          case (1):
+                            {
+                              setState(() {
+                                buttonState1 = true;
+                                color1 = Colors.green;
+                                label1 = '';
+                              });
+                            }
+                            break;
+                          case (2):
+                            {
+                              buttonState2 = true;
+                              color2 = Colors.green;
+                              label2 = '';
+                            }
+                            break;
+                          case (3):
+                            {
+                              buttonState3 = true;
+                              color3 = Colors.green;
+                              label3 = '';
+                            }
+                            break;
+                          case (4):
+                            {
+                              buttonState4 = true;
+                              color4 = Colors.green;
+                              label4 = '';
+                            }
+                            break;
+                          case (5):
+                            {
+                              buttonState5 = true;
+                              color5 = Colors.green;
+                              label5 = '';
+                            }
+                            break;
+                        }
+                        selectedList = [];
                       }
                     }
                   });
@@ -251,31 +232,14 @@ class PositionedTilesState extends State<PositionedTiles> {
                     selectedCount = selectedList.length;
                     if (selectedCount == 1) {
                       selectedCount1 = label1;
-                      selectedButtonNumber1 = 1;
+                      selectedButtonNumber1=1;
                     } else if (selectedCount == 2) {
                       selectedCount2 = label1;
-                      selectedButtonNumber2 = 1;
+                      selectedButtonNumber2=1;
                       if (selectedCount1 == selectedCount2) {
                         print('Ayni');
                         print(selectedCount1 + '   ' + selectedCount2);
-                        Future.delayed(Duration(seconds: 2), () {
-                          listFinish.add(selectedCount1);
-                          listFinish.add(selectedCount2);
-                          if (listFinish.length == 6) {
-                            newGame();
-                          }
-                        });
                         selectedList = [];
-                      } else {
-                        Future.delayed(Duration(seconds: 2), () {
-                          setState(() {
-                            buttonState1 = true;
-                            color1 = Colors.green;
-                            label1 = '';
-                            switchState(selectedButtonNumber1);
-                            selectedList = [];
-                          });
-                        });
                       }
                     }
                   });
@@ -298,31 +262,14 @@ class PositionedTilesState extends State<PositionedTiles> {
                     selectedCount = selectedList.length;
                     if (selectedCount == 1) {
                       selectedCount1 = label2;
-                      selectedButtonNumber1 = 2;
+                      selectedButtonNumber1=2;
                     } else if (selectedCount == 2) {
                       selectedCount2 = label2;
-                      selectedButtonNumber2 = 2;
+                      selectedButtonNumber2=2;
                       if (selectedCount1 == selectedCount2) {
                         print('Ayni');
                         print(selectedCount1 + '   ' + selectedCount2);
-                        Future.delayed(Duration(seconds: 2), () {
-                          listFinish.add(selectedCount1);
-                          listFinish.add(selectedCount2);
-                          if (listFinish.length == 6) {
-                            newGame();
-                          }
-                        });
                         selectedList = [];
-                      } else {
-                        Future.delayed(Duration(seconds: 2), () {
-                          setState(() {
-                            buttonState2 = true;
-                            color2 = Colors.green;
-                            label2 = '';
-                            switchState(selectedButtonNumber1);
-                            selectedList = [];
-                          });
-                        });
                       }
                     }
                   });
@@ -345,31 +292,14 @@ class PositionedTilesState extends State<PositionedTiles> {
                     selectedCount = selectedList.length;
                     if (selectedCount == 1) {
                       selectedCount1 = label3;
-                      selectedButtonNumber1 = 3;
+                      selectedButtonNumber1=3;
                     } else if (selectedCount == 2) {
                       selectedCount2 = label3;
-                      selectedButtonNumber2 = 3;
+                      selectedButtonNumber2=3;
                       if (selectedCount1 == selectedCount2) {
                         print('Ayni');
                         print(selectedCount1 + '   ' + selectedCount2);
-                        Future.delayed(Duration(seconds: 2), () {
-                          listFinish.add(selectedCount1);
-                          listFinish.add(selectedCount2);
-                          if (listFinish.length == 6) {
-                            newGame();
-                          }
-                        });
                         selectedList = [];
-                      } else {
-                        Future.delayed(Duration(seconds: 2), () {
-                          setState(() {
-                            buttonState3 = true;
-                            color3 = Colors.green;
-                            label3 = '';
-                            switchState(selectedButtonNumber1);
-                            selectedList = [];
-                          });
-                        });
                       }
                     }
                   });
@@ -392,31 +322,14 @@ class PositionedTilesState extends State<PositionedTiles> {
                     selectedCount = selectedList.length;
                     if (selectedCount == 1) {
                       selectedCount1 = label4;
-                      selectedButtonNumber1 = 4;
+                      selectedButtonNumber1=4;
                     } else if (selectedCount == 2) {
                       selectedCount2 = label4;
-                      selectedButtonNumber2 = 4;
+                      selectedButtonNumber2=4;
                       if (selectedCount1 == selectedCount2) {
                         print('Ayni');
                         print(selectedCount1 + '   ' + selectedCount2);
-                        Future.delayed(Duration(seconds: 2), () {
-                          listFinish.add(selectedCount1);
-                          listFinish.add(selectedCount2);
-                          if (listFinish.length == 6) {
-                            newGame();
-                          }
-                        });
                         selectedList = [];
-                      } else {
-                        Future.delayed(Duration(seconds: 2), () {
-                          setState(() {
-                            buttonState4 = true;
-                            color4 = Colors.green;
-                            label4 = '';
-                            switchState(selectedButtonNumber1);
-                            selectedList = [];
-                          });
-                        });
                       }
                     }
                   });
@@ -439,31 +352,14 @@ class PositionedTilesState extends State<PositionedTiles> {
                     selectedCount = selectedList.length;
                     if (selectedCount == 1) {
                       selectedCount1 = label5;
-                      selectedButtonNumber1 = 5;
+                      selectedButtonNumber1=5;
                     } else if (selectedCount == 2) {
                       selectedCount2 = label5;
-                      selectedButtonNumber2 = 5;
+                      selectedButtonNumber2=5;
                       if (selectedCount1 == selectedCount2) {
                         print('Ayni');
                         print(selectedCount1 + '   ' + selectedCount2);
-                        Future.delayed(Duration(seconds: 2), () {
-                          listFinish.add(selectedCount1);
-                          listFinish.add(selectedCount2);
-                          if (listFinish.length == 6) {
-                            newGame();
-                          }
-                        });
                         selectedList = [];
-                      } else {
-                        Future.delayed(Duration(seconds: 2), () {
-                          setState(() {
-                            buttonState5 = true;
-                            color5 = Colors.green;
-                            label5 = '';
-                            switchState(selectedButtonNumber1);
-                            selectedList = [];
-                          });
-                        });
                       }
                     }
                   });
@@ -477,58 +373,14 @@ class PositionedTilesState extends State<PositionedTiles> {
             child: Icon(Icons.sentiment_very_satisfied),
             onPressed: () {
               print('FloatingActionButton');
-              newGame();
+              setState(() {
+                setUp();
+                print(selectedList);
+                selectedList = [];
+                print(selectedList);
+              });
             }),
       ),
     );
-  }
-
-  switchState(int selectedButtonNumberSwitch) {
-    switch (selectedButtonNumberSwitch) {
-      case (0):
-        {
-          buttonState0 = true;
-          color0 = Colors.green;
-          label0 = '';
-        }
-        break;
-      case (1):
-        {
-          setState(() {
-            buttonState1 = true;
-            color1 = Colors.green;
-            label1 = '';
-          });
-        }
-        break;
-      case (2):
-        {
-          buttonState2 = true;
-          color2 = Colors.green;
-          label2 = '';
-        }
-        break;
-      case (3):
-        {
-          buttonState3 = true;
-          color3 = Colors.green;
-          label3 = '';
-        }
-        break;
-      case (4):
-        {
-          buttonState4 = true;
-          color4 = Colors.green;
-          label4 = '';
-        }
-        break;
-      case (5):
-        {
-          buttonState5 = true;
-          color5 = Colors.green;
-          label5 = '';
-        }
-        break;
-    }
   }
 }
