@@ -1,0 +1,632 @@
+import 'package:flutter/material.dart';
+import 'dart:math';
+
+void main() => runApp(new MaterialApp(
+  home: PositionedTiles(),
+  debugShowCheckedModeBanner: false,
+));
+
+class PositionedTiles extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => PositionedTilesState();
+}
+
+Color colorOn0 = Colors.deepPurple;
+Color colorOn1 = Colors.deepPurple;
+Color colorOn2 = Colors.deepPurple;
+Color colorOn3 = Colors.deepPurple;
+Color colorOn4 = Colors.deepPurple;
+Color colorOn5 = Colors.deepPurple;
+
+Color color0 = Colors.green;
+Color color1 = Colors.green;
+Color color2 = Colors.green;
+Color color3 = Colors.green;
+Color color4 = Colors.green;
+Color color5 = Colors.green;
+
+String label0 = '';
+String label1 = '';
+String label2 = '';
+String label3 = '';
+String label4 = '';
+String label5 = '';
+
+bool buttonState0 = true;
+bool buttonState1 = true;
+bool buttonState2 = true;
+bool buttonState3 = true;
+bool buttonState4 = true;
+bool buttonState5 = true;
+
+int buttonNumber0 = 0;
+int buttonNumber1 = 1;
+int buttonNumber2 = 2;
+int buttonNumber3 = 3;
+int buttonNumber4 = 4;
+int buttonNumber5 = 5;
+
+String selectedCount1 = '';
+String selectedCount2 = '';
+int selectedCount = 0;
+int selectedButtonNumber1 = 0;
+int selectedButtonNumber2 = 0;
+
+int listNumber = 0;
+Random random = Random();
+Random random1 = Random();
+
+int count = 0;
+
+List<String> selectedList = [];
+List<int> list = [];
+List<int> listRandomSelected = [];
+List<int> listRandomControl = [];
+List<String> listFinish = [];
+
+bool enableButton0 = true;
+bool enableButton1 = true;
+bool enableButton2 = true;
+bool enableButton3 = true;
+bool enableButton4 = true;
+bool enableButton5 = true;
+
+class PositionedTilesState extends State<PositionedTiles> {
+  int i = 0;
+  int randomRange = 3;
+
+  listRandom() {
+    final items2 = List<int>.generate(100, (index) => index);
+    List<int> createRandomList = [];
+    Random getRandom = Random();
+    for (int i = 0; i < 3; i++) {
+      int getNumber = getRandom.nextInt(items2.length);
+      int randomItems = items2[getNumber];
+      createRandomList.add(randomItems);
+      list.add(randomItems);
+      list.add(randomItems);
+      items2.removeAt(getNumber);
+      setState(() {
+        int itemsLength = items2.length;
+      });
+    }
+  }
+
+  listReduce() {
+    int cycle = 6;
+    for (int k = 1; k <= cycle; k++) {
+      if (list.isNotEmpty) {
+        count = list.length;
+        int value = random.nextInt(count);
+        int listValue = list[value];
+        listRandomSelected.add(listValue);
+        list.removeAt(value);
+      }
+    }
+    print('listRandomSelected $listRandomSelected');
+  }
+
+  delayed(@required bool buttonState, Color color, String label) {
+    Future.delayed(Duration(seconds: 3), () {
+      buttonState = true;
+      color = Colors.green;
+      label = '';
+      switchState(selectedButtonNumber1);
+      selectedList = [];
+    });
+  }
+
+  newGame() {
+    setState(() {
+      selectedList = [];
+      list = [];
+      listRandomSelected = [];
+      setUp();
+      listRandom();
+      listReduce();
+      listFinish = [];
+    });
+  }
+
+  enableButtonListFalse() {
+    enableButton0 = false;
+    enableButton1 = false;
+    enableButton2 = false;
+    enableButton3 = false;
+    enableButton4 = false;
+    enableButton5 = false;
+  }
+
+  enableButtonListTrue() {
+    enableButton0 = true;
+    enableButton1 = true;
+    enableButton2 = true;
+    enableButton3 = true;
+    enableButton4 = true;
+    enableButton5 = true;
+  }
+
+  @override
+  void initState() {
+    listRandom();
+    listReduce();
+    print(enableButton0);
+    super.initState();
+  }
+
+  setUp() {
+    color0 = Colors.green;
+    color1 = Colors.green;
+    color2 = Colors.green;
+    color3 = Colors.green;
+    color4 = Colors.green;
+    color5 = Colors.green;
+
+    label0 = '';
+    label1 = '';
+    label2 = '';
+    label3 = '';
+    label4 = '';
+    label5 = '';
+
+    buttonState0 = true;
+    buttonState1 = true;
+    buttonState2 = true;
+    buttonState3 = true;
+    buttonState4 = true;
+    buttonState5 = true;
+
+    buttonNumber0 = 0;
+    buttonNumber1 = 1;
+    buttonNumber2 = 2;
+    buttonNumber3 = 3;
+    buttonNumber4 = 4;
+    buttonNumber5 = 5;
+
+    selectedCount1 = '';
+    selectedCount2 = '';
+    selectedCount = 0;
+    selectedButtonNumber1 = 0;
+    selectedButtonNumber2 = 0;
+
+    enableButton0 = true;
+    enableButton1 = true;
+    enableButton2 = true;
+    enableButton3 = true;
+    enableButton4 = true;
+    enableButton5 = true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 18),
+                      primary: Colors.deepPurple),
+                  onPressed: () {
+                    newGame();
+                  },
+                  child: Text('New Game')),
+              SizedBox(
+                width: 50.0,
+              ),
+              Text('FindTheSame'),
+            ],
+          ),
+        ),
+        body: Center(
+          child: GridView.builder(
+            primary: false,
+            padding: const EdgeInsets.all(20),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: 10, mainAxisSpacing: 10, crossAxisCount: 2),
+            itemCount: 6,
+            itemBuilder: (BuildContext context, int index) {
+              Widget? widget;
+              switch (index) {
+                case 0:
+                  widget = Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20),
+                          primary: color0),
+                      onPressed: () {
+                        if (buttonState0 && enableButton0) {
+                          print('Button0');
+                          setState(() {
+                            color0 = Colors.deepPurple;
+                            label0 = listRandomSelected[0].toString();
+                            selectedList.add(label0);
+                            print(selectedList);
+                            buttonState0 = false;
+                            selectedCount = selectedList.length;
+                            if (selectedCount == 1) {
+                              selectedCount1 = label0;
+                              selectedButtonNumber1 = 0;
+                            } else if (selectedCount == 2) {
+                              selectedCount2 = label0;
+                              selectedButtonNumber2 = 0;
+                              if (selectedCount1 == selectedCount2) {
+                                enableButtonListFalse();
+                                print('Ayni');
+                                print(selectedCount1 + '   ' + selectedCount2);
+                                Future.delayed(Duration(seconds: 1), () {
+                                  listFinish.add(selectedCount1);
+                                  listFinish.add(selectedCount2);
+                                  if (listFinish.length == 6) {
+                                    newGame();
+                                  }
+                                  enableButtonListTrue();
+                                });
+                                selectedList = [];
+                              } else {
+                                enableButtonListFalse();
+                                Future.delayed(Duration(seconds: 2), () {
+                                  setState(() {
+                                    buttonState0 = true;
+                                    color0 = Colors.green;
+                                    label0 = '';
+                                    switchState(selectedButtonNumber1);
+                                    selectedList = [];
+                                    enableButtonListTrue();
+                                  });
+                                });
+                              }
+                            }
+                          });
+                        }
+                      },
+                      child: Text(label0),
+                    ),
+                  );
+                  break;
+                case 1:
+                  widget = Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20),
+                          primary: color1),
+                      onPressed: () {
+                        if (buttonState1 && enableButton1) {
+                          print('Button1');
+                          setState(() {
+                            color1 = Colors.deepPurple;
+                            label1 = listRandomSelected[1].toString();
+                            selectedList.add(label1);
+                            print(selectedList);
+                            buttonState1 = false;
+                            selectedCount = selectedList.length;
+                            if (selectedCount == 1) {
+                              selectedCount1 = label1;
+                              selectedButtonNumber1 = 1;
+                            } else if (selectedCount == 2) {
+                              selectedCount2 = label1;
+                              selectedButtonNumber2 = 1;
+                              if (selectedCount1 == selectedCount2) {
+                                enableButtonListFalse();
+                                print('Ayni');
+                                print(selectedCount1 + '   ' + selectedCount2);
+                                Future.delayed(Duration(seconds: 1), () {
+                                  listFinish.add(selectedCount1);
+                                  listFinish.add(selectedCount2);
+                                  if (listFinish.length == 6) {
+                                    newGame();
+                                  }
+                                  enableButtonListTrue();
+                                });
+                                selectedList = [];
+                              } else {
+                                enableButtonListFalse();
+                                Future.delayed(Duration(seconds: 2), () {
+                                  setState(() {
+                                    buttonState1 = true;
+                                    color1 = Colors.green;
+                                    label1 = '';
+                                    switchState(selectedButtonNumber1);
+                                    selectedList = [];
+                                    enableButtonListTrue();
+                                  });
+                                });
+                              }
+                            }
+                          });
+                        }
+                      },
+                      child: Text(label1),
+                    ),
+                  );
+                  break;
+                case 2:
+                  widget = Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20),
+                          primary: color2),
+                      onPressed: () {
+                        if (buttonState2 && enableButton2) {
+                          print('Button2');
+                          setState(() {
+                            color2 = Colors.deepPurple;
+                            label2 = listRandomSelected[2].toString();
+                            selectedList.add(label2);
+                            print(selectedList);
+                            buttonState2 = false;
+                            selectedCount = selectedList.length;
+                            if (selectedCount == 1) {
+                              selectedCount1 = label2;
+                              selectedButtonNumber1 = 2;
+                            } else if (selectedCount == 2) {
+                              selectedCount2 = label2;
+                              selectedButtonNumber2 = 2;
+                              if (selectedCount1 == selectedCount2) {
+                                enableButtonListFalse();
+                                print('Ayni');
+                                print(selectedCount1 + '   ' + selectedCount2);
+                                Future.delayed(Duration(seconds: 1), () {
+                                  listFinish.add(selectedCount1);
+                                  listFinish.add(selectedCount2);
+                                  if (listFinish.length == 6) {
+                                    newGame();
+                                  }
+                                  enableButtonListTrue();
+                                });
+                                selectedList = [];
+                              } else {
+                                enableButtonListFalse();
+                                Future.delayed(Duration(seconds: 2), () {
+                                  setState(() {
+                                    buttonState2 = true;
+                                    color2 = Colors.green;
+                                    label2 = '';
+                                    switchState(selectedButtonNumber1);
+                                    selectedList = [];
+                                    enableButtonListTrue();
+                                  });
+                                });
+                              }
+                            }
+                          });
+                        }
+                      },
+                      child: Text(label2),
+                    ),
+                  );
+                  break;
+                case 3:
+                  widget = Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20),
+                          primary: color3),
+                      onPressed: () {
+                        if (buttonState3 && enableButton3) {
+                          print('Button3');
+                          setState(() {
+                            color3 = Colors.deepPurple;
+                            label3 = listRandomSelected[3].toString();
+                            selectedList.add(label3);
+                            print(selectedList);
+                            buttonState3 = false;
+                            selectedCount = selectedList.length;
+                            if (selectedCount == 1) {
+                              selectedCount1 = label3;
+                              selectedButtonNumber1 = 3;
+                            } else if (selectedCount == 2) {
+                              selectedCount2 = label3;
+                              selectedButtonNumber2 = 3;
+                              if (selectedCount1 == selectedCount2) {
+                                enableButtonListFalse();
+                                print('Ayni');
+                                print(selectedCount1 + '   ' + selectedCount2);
+                                Future.delayed(Duration(seconds: 1), () {
+                                  listFinish.add(selectedCount1);
+                                  listFinish.add(selectedCount2);
+                                  if (listFinish.length == 6) {
+                                    newGame();
+                                  }
+                                  enableButtonListTrue();
+                                });
+                                selectedList = [];
+                              } else {
+                                enableButtonListFalse();
+                                Future.delayed(Duration(seconds: 2), () {
+                                  setState(() {
+                                    buttonState3 = true;
+                                    color3 = Colors.green;
+                                    label3 = '';
+                                    switchState(selectedButtonNumber1);
+                                    selectedList = [];
+                                    enableButtonListTrue();
+                                  });
+                                });
+                              }
+                            }
+                          });
+                        }
+                      },
+                      child: Text(label3),
+                    ),
+                  );
+                  break;
+                case 4:
+                  widget = Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20),
+                          primary: color4),
+                      onPressed: () {
+                        if (buttonState4 && enableButton4) {
+                          print('Button4');
+                          setState(() {
+                            color4 = Colors.deepPurple;
+                            label4 = listRandomSelected[4].toString();
+                            selectedList.add(label4);
+                            print(selectedList);
+                            buttonState4 = false;
+                            selectedCount = selectedList.length;
+                            if (selectedCount == 1) {
+                              selectedCount1 = label4;
+                              selectedButtonNumber1 = 4;
+                            } else if (selectedCount == 2) {
+                              selectedCount2 = label4;
+                              selectedButtonNumber2 = 4;
+                              if (selectedCount1 == selectedCount2) {
+                                enableButtonListFalse();
+                                print('Ayni');
+                                print(selectedCount1 + '   ' + selectedCount2);
+                                Future.delayed(Duration(seconds: 1), () {
+                                  listFinish.add(selectedCount1);
+                                  listFinish.add(selectedCount2);
+                                  if (listFinish.length == 6) {
+                                    newGame();
+                                  }
+                                  enableButtonListTrue();
+                                });
+                                selectedList = [];
+                              } else {
+                                enableButtonListFalse();
+                                Future.delayed(Duration(seconds: 2), () {
+                                  setState(() {
+                                    buttonState4 = true;
+                                    color4 = Colors.green;
+                                    label4 = '';
+                                    switchState(selectedButtonNumber1);
+                                    selectedList = [];
+                                    enableButtonListTrue();
+                                  });
+                                });
+                              }
+                            }
+                          });
+                        }
+                      },
+                      child: Text(label4),
+                    ),
+                  );
+                  break;
+                case 5:
+                  widget = Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20),
+                          primary: color5),
+                      onPressed: () {
+                        if (buttonState5 && enableButton5) {
+                          print('Button5');
+                          setState(() {
+                            color5 = Colors.deepPurple;
+                            label5 = listRandomSelected[5].toString();
+                            selectedList.add(label5);
+                            print(selectedList);
+                            buttonState5 = false;
+                            selectedCount = selectedList.length;
+                            if (selectedCount == 1) {
+                              selectedCount1 = label5;
+                              selectedButtonNumber1 = 5;
+                            } else if (selectedCount == 2) {
+                              selectedCount2 = label5;
+                              selectedButtonNumber2 = 5;
+                              if (selectedCount1 == selectedCount2) {
+                                enableButtonListFalse();
+                                print('Ayni');
+                                print(selectedCount1 + '   ' + selectedCount2);
+                                Future.delayed(Duration(seconds: 1), () {
+                                  listFinish.add(selectedCount1);
+                                  listFinish.add(selectedCount2);
+                                  if (listFinish.length == 6) {
+                                    newGame();
+                                  }
+                                  enableButtonListTrue();
+                                });
+                                selectedList = [];
+                              } else {
+                                enableButtonListFalse();
+                                print(
+                                    'selectedButtonNumber2 $selectedButtonNumber2');
+                                Future.delayed(Duration(seconds: 2), () {
+                                  setState(() {
+                                    buttonState5 = true;
+                                    color5 = Colors.green;
+                                    label5 = '';
+                                    switchState(selectedButtonNumber1);
+                                    selectedList = [];
+                                    enableButtonListTrue();
+                                  });
+                                });
+                              }
+                            }
+                          });
+                        }
+                      },
+                      child: Text(label5),
+                    ),
+                  );
+              }
+              return widget!;
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  switchState(int selectedButtonNumberSwitch) {
+    switch (selectedButtonNumberSwitch) {
+      case (0):
+        {
+          buttonState0 = true;
+          color0 = Colors.green;
+          label0 = '';
+        }
+        break;
+      case (1):
+        {
+          setState(() {
+            buttonState1 = true;
+            color1 = Colors.green;
+            label1 = '';
+          });
+        }
+        break;
+      case (2):
+        {
+          buttonState2 = true;
+          color2 = Colors.green;
+          label2 = '';
+        }
+        break;
+      case (3):
+        {
+          buttonState3 = true;
+          color3 = Colors.green;
+          label3 = '';
+        }
+        break;
+      case (4):
+        {
+          buttonState4 = true;
+          color4 = Colors.green;
+          label4 = '';
+        }
+        break;
+      case (5):
+        {
+          buttonState5 = true;
+          color5 = Colors.green;
+          label5 = '';
+        }
+        break;
+    }
+  }
+}

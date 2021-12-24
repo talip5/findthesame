@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 void main() => runApp(new MaterialApp(
-      home: PositionedTiles(),
-      debugShowCheckedModeBanner: false,
-    ));
+  home: PositionedTiles(),
+  debugShowCheckedModeBanner: false,
+));
 
 class PositionedTiles extends StatefulWidget {
   @override
@@ -184,7 +184,7 @@ bool enableButton22 = true;
 bool enableButton23 = true;
 
 class PositionedTilesState extends State<PositionedTiles> {
- // int i = 0;
+  // int i = 0;
   //int randomRange = 3;
 
   listRandom() {
@@ -474,7 +474,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color0),
                       onPressed: () {
                         if (buttonState0 && enableButton0) {
@@ -531,7 +531,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color1),
                       onPressed: () {
                         if (buttonState1 && enableButton1) {
@@ -588,7 +588,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color2),
                       onPressed: () {
                         if (buttonState2 && enableButton2) {
@@ -645,7 +645,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color3),
                       onPressed: () {
                         if (buttonState3 && enableButton3) {
@@ -702,7 +702,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color4),
                       onPressed: () {
                         if (buttonState4 && enableButton4) {
@@ -759,7 +759,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color5),
                       onPressed: () {
                         if (buttonState5 && enableButton5) {
@@ -817,7 +817,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color6),
                       onPressed: () {
                         if (buttonState6 && enableButton6) {
@@ -875,7 +875,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color7),
                       onPressed: () {
                         if (buttonState7 && enableButton7) {
@@ -933,7 +933,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color8),
                       onPressed: () {
                         if (buttonState8 && enableButton8) {
@@ -991,7 +991,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color9),
                       onPressed: () {
                         if (buttonState9 && enableButton9) {
@@ -1049,7 +1049,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color10),
                       onPressed: () {
                         if (buttonState10 && enableButton10) {
@@ -1107,7 +1107,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color11),
                       onPressed: () {
                         if (buttonState11 && enableButton11) {
@@ -1165,7 +1165,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color12),
                       onPressed: () {
                         if (buttonState12 && enableButton12) {
@@ -1223,7 +1223,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color13),
                       onPressed: () {
                         if (buttonState13 && enableButton13) {
@@ -1281,7 +1281,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color14),
                       onPressed: () {
                         if (buttonState14 && enableButton14) {
@@ -1339,7 +1339,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color15),
                       onPressed: () {
                         if (buttonState15 && enableButton15) {
@@ -1397,7 +1397,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color16),
                       onPressed: () {
                         if (buttonState16 && enableButton16) {
@@ -1455,7 +1455,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color17),
                       onPressed: () {
                         if (buttonState17 && enableButton17) {
@@ -1513,7 +1513,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color18),
                       onPressed: () {
                         if (buttonState18 && enableButton18) {
@@ -1571,7 +1571,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color19),
                       onPressed: () {
                         if (buttonState19 && enableButton19) {
@@ -1629,7 +1629,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color20),
                       onPressed: () {
                         if (buttonState20 && enableButton20) {
@@ -1687,7 +1687,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color21),
                       onPressed: () {
                         if (buttonState21 && enableButton21) {
@@ -1745,7 +1745,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color22),
                       onPressed: () {
                         if (buttonState22 && enableButton22) {
@@ -1803,7 +1803,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     margin: EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 20),
                           primary: color23),
                       onPressed: () {
                         if (buttonState23 && enableButton23) {
