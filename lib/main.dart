@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:intl/intl.dart';
+import 'dart:async';
 
 void main() => runApp(new MaterialApp(
       home: PositionedTiles(),
@@ -37,8 +39,7 @@ Color colorOn21 = purple;
 Color colorOn22 = purple;
 Color colorOn23 = purple;
 
-
-Color green=Colors.green;
+Color green = Colors.green;
 Color color0 = green;
 Color color1 = green;
 Color color2 = green;
@@ -114,7 +115,6 @@ bool buttonState21 = true;
 bool buttonState22 = true;
 bool buttonState23 = true;
 
-
 int buttonNumber0 = 0;
 int buttonNumber1 = 1;
 int buttonNumber2 = 2;
@@ -145,6 +145,7 @@ String selectedCount2 = '';
 int selectedCount = 0;
 int selectedButtonNumber1 = 0;
 int selectedButtonNumber2 = 0;
+bool newGameControl=false;
 
 int listNumber = 0;
 Random random = Random();
@@ -157,6 +158,7 @@ List<int> list = [];
 List<int> listRandomSelected = [];
 List<int> listRandomControl = [];
 List<String> listFinish = [];
+List<bool> listFirstPress=[];
 
 bool enableButton0 = true;
 bool enableButton1 = true;
@@ -184,8 +186,35 @@ bool enableButton22 = true;
 bool enableButton23 = true;
 
 class PositionedTilesState extends State<PositionedTiles> {
- // int i = 0;
+  // int i = 0;
   //int randomRange = 3;
+
+  var f = new NumberFormat("000");
+  Timer? timer;
+  int score = 0;
+  String scoreText='000';
+   timeStart() {
+     score = 0;
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        score++;
+        if(newGameControl==true){
+          score=0;
+          timer.cancel();
+        }
+        if(score>999){
+          score=0;
+          timeStop();
+          newGame();
+        }
+        scoreText=f.format(score);
+      });
+    });
+  }
+
+  timeStop(){
+    timer!.cancel();
+  }
 
   listRandom() {
     final items2 = List<int>.generate(100, (index) => index);
@@ -220,6 +249,14 @@ class PositionedTilesState extends State<PositionedTiles> {
     print('listRandomSelected $listRandomSelected');
   }
 
+  firstPressControl(){
+    if(listFirstPress.isEmpty){
+      listFirstPress.add(true);
+      newGameControl=false;
+      timeStart();
+    }
+  }
+
   delayed(@required bool buttonState, Color color, String label) {
     Future.delayed(Duration(seconds: 3), () {
       buttonState = true;
@@ -235,10 +272,10 @@ class PositionedTilesState extends State<PositionedTiles> {
       selectedList = [];
       list = [];
       listRandomSelected = [];
+      listFinish = [];
       setUp();
       listRandom();
       listReduce();
-      listFinish = [];
     });
   }
 
@@ -253,20 +290,20 @@ class PositionedTilesState extends State<PositionedTiles> {
     enableButton7 = false;
     enableButton8 = false;
     enableButton9 = false;
-    enableButton10 =false;
-    enableButton11 =false;
-    enableButton12 =false;
-    enableButton13 =false;
-    enableButton14 =false;
-    enableButton15 =false;
-    enableButton16 =false;
-    enableButton17 =false;
-    enableButton18 =false;
-    enableButton19 =false;
-    enableButton20 =false;
-    enableButton21 =false;
-    enableButton22 =false;
-    enableButton23 =false;
+    enableButton10 = false;
+    enableButton11 = false;
+    enableButton12 = false;
+    enableButton13 = false;
+    enableButton14 = false;
+    enableButton15 = false;
+    enableButton16 = false;
+    enableButton17 = false;
+    enableButton18 = false;
+    enableButton19 = false;
+    enableButton20 = false;
+    enableButton21 = false;
+    enableButton22 = false;
+    enableButton23 = false;
   }
 
   enableButtonListTrue() {
@@ -294,6 +331,11 @@ class PositionedTilesState extends State<PositionedTiles> {
     enableButton21 = true;
     enableButton22 = true;
     enableButton23 = true;
+  }
+
+  screenSize(){
+    var dimension=MediaQuery.of(context).size.width;
+    print(dimension);
   }
 
   @override
@@ -410,6 +452,7 @@ class PositionedTilesState extends State<PositionedTiles> {
     selectedCount = 0;
     selectedButtonNumber1 = 0;
     selectedButtonNumber2 = 0;
+    listFirstPress=[];
 
     enableButton0 = true;
     enableButton1 = true;
@@ -444,18 +487,29 @@ class PositionedTilesState extends State<PositionedTiles> {
         appBar: AppBar(
           title: Row(
             children: [
+              SizedBox(width: MediaQuery.of(context).size.width/40,),
+              //Text(MediaQuery.of(context).size.width.toInt().toString()),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       textStyle: const TextStyle(fontSize: 18),
                       primary: Colors.deepPurple),
                   onPressed: () {
-                    newGame();
+                    setState(() {
+                      newGameControl=true;
+                      newGame();
+                    });
                   },
                   child: Text('New Game')),
               SizedBox(
-                width: 25.0,
+                width:MediaQuery.of(context).size.width/100*8,
               ),
-              Text('FindTheSame'),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 18),
+                    primary: Colors.deepPurple),
+                onPressed: () {},
+                child: Text('Score : $scoreText'),
+              ),
             ],
           ),
         ),
@@ -480,6 +534,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState0 && enableButton0) {
                           ////print('Button0');
                           setState(() {
+                            firstPressControl();
                             color0 = Colors.deepPurple;
                             label0 = listRandomSelected[0].toString();
                             selectedList.add(label0);
@@ -500,6 +555,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -537,6 +593,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState1 && enableButton1) {
                           ////print('Button1');
                           setState(() {
+                            firstPressControl();
                             color1 = Colors.deepPurple;
                             label1 = listRandomSelected[1].toString();
                             selectedList.add(label1);
@@ -557,6 +614,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -594,6 +652,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState2 && enableButton2) {
                           ////print('Button2');
                           setState(() {
+                            firstPressControl();
                             color2 = Colors.deepPurple;
                             label2 = listRandomSelected[2].toString();
                             selectedList.add(label2);
@@ -614,6 +673,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -651,6 +711,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState3 && enableButton3) {
                           ////print('Button3');
                           setState(() {
+                            firstPressControl();
                             color3 = Colors.deepPurple;
                             label3 = listRandomSelected[3].toString();
                             selectedList.add(label3);
@@ -671,6 +732,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -708,6 +770,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState4 && enableButton4) {
                           //print('Button4');
                           setState(() {
+                            firstPressControl();
                             color4 = Colors.deepPurple;
                             label4 = listRandomSelected[4].toString();
                             selectedList.add(label4);
@@ -728,6 +791,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -765,6 +829,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState5 && enableButton5) {
                           //print('Button5');
                           setState(() {
+                            firstPressControl();
                             color5 = Colors.deepPurple;
                             label5 = listRandomSelected[5].toString();
                             selectedList.add(label5);
@@ -785,6 +850,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -823,6 +889,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState6 && enableButton6) {
                           //print('Button6');
                           setState(() {
+                            firstPressControl();
                             color6 = Colors.deepPurple;
                             label6 = listRandomSelected[6].toString();
                             selectedList.add(label6);
@@ -843,6 +910,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -881,6 +949,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState7 && enableButton7) {
                           //print('Button7');
                           setState(() {
+                            firstPressControl();
                             color7 = Colors.deepPurple;
                             label7 = listRandomSelected[7].toString();
                             selectedList.add(label7);
@@ -901,6 +970,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -939,6 +1009,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState8 && enableButton8) {
                           //print('Button8');
                           setState(() {
+                            firstPressControl();
                             color8 = Colors.deepPurple;
                             label8 = listRandomSelected[8].toString();
                             selectedList.add(label8);
@@ -959,6 +1030,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -997,6 +1069,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState9 && enableButton9) {
                           //print('Button9');
                           setState(() {
+                            firstPressControl();
                             color9 = Colors.deepPurple;
                             label9 = listRandomSelected[9].toString();
                             selectedList.add(label9);
@@ -1017,6 +1090,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1055,6 +1129,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState10 && enableButton10) {
                           //print('Button10');
                           setState(() {
+                            firstPressControl();
                             color10 = Colors.deepPurple;
                             label10 = listRandomSelected[10].toString();
                             selectedList.add(label10);
@@ -1075,6 +1150,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1113,6 +1189,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState11 && enableButton11) {
                           //print('Button11');
                           setState(() {
+                            firstPressControl();
                             color11 = Colors.deepPurple;
                             label11 = listRandomSelected[11].toString();
                             selectedList.add(label11);
@@ -1133,6 +1210,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1171,6 +1249,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState12 && enableButton12) {
                           //print('Button12');
                           setState(() {
+                            firstPressControl();
                             color12 = Colors.deepPurple;
                             label12 = listRandomSelected[12].toString();
                             selectedList.add(label12);
@@ -1191,6 +1270,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1229,6 +1309,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState13 && enableButton13) {
                           //print('Button13');
                           setState(() {
+                            firstPressControl();
                             color13 = Colors.deepPurple;
                             label13 = listRandomSelected[13].toString();
                             selectedList.add(label13);
@@ -1249,6 +1330,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1287,6 +1369,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState14 && enableButton14) {
                           //print('Button14');
                           setState(() {
+                            firstPressControl();
                             color14 = Colors.deepPurple;
                             label14 = listRandomSelected[14].toString();
                             selectedList.add(label14);
@@ -1307,6 +1390,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1345,6 +1429,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState15 && enableButton15) {
                           //print('Button15');
                           setState(() {
+                            firstPressControl();
                             color15 = Colors.deepPurple;
                             label15 = listRandomSelected[15].toString();
                             selectedList.add(label15);
@@ -1365,6 +1450,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1403,6 +1489,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState16 && enableButton16) {
                           //print('Button16');
                           setState(() {
+                            firstPressControl();
                             color16 = Colors.deepPurple;
                             label16 = listRandomSelected[16].toString();
                             selectedList.add(label16);
@@ -1423,6 +1510,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1461,6 +1549,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState17 && enableButton17) {
                           //print('Button17');
                           setState(() {
+                            firstPressControl();
                             color17 = Colors.deepPurple;
                             label17 = listRandomSelected[17].toString();
                             selectedList.add(label17);
@@ -1481,6 +1570,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1519,6 +1609,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState18 && enableButton18) {
                           //print('Button18');
                           setState(() {
+                            firstPressControl();
                             color18 = Colors.deepPurple;
                             label18 = listRandomSelected[18].toString();
                             selectedList.add(label18);
@@ -1539,6 +1630,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1577,6 +1669,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState19 && enableButton19) {
                           //print('Button19');
                           setState(() {
+                            firstPressControl();
                             color19 = Colors.deepPurple;
                             label19 = listRandomSelected[19].toString();
                             selectedList.add(label19);
@@ -1597,6 +1690,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1635,6 +1729,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState20 && enableButton20) {
                           //print('Button20');
                           setState(() {
+                            firstPressControl();
                             color20 = Colors.deepPurple;
                             label20 = listRandomSelected[20].toString();
                             selectedList.add(label20);
@@ -1655,6 +1750,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1693,6 +1789,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState21 && enableButton21) {
                           //print('Button21');
                           setState(() {
+                            firstPressControl();
                             color21 = Colors.deepPurple;
                             label21 = listRandomSelected[21].toString();
                             selectedList.add(label21);
@@ -1713,6 +1810,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1751,6 +1849,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState22 && enableButton22) {
                           //print('Button22');
                           setState(() {
+                            firstPressControl();
                             color22 = Colors.deepPurple;
                             label22 = listRandomSelected[22].toString();
                             selectedList.add(label22);
@@ -1771,6 +1870,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
@@ -1809,6 +1909,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                         if (buttonState23 && enableButton23) {
                           //print('Button23');
                           setState(() {
+                            firstPressControl();
                             color23 = Colors.deepPurple;
                             label23 = listRandomSelected[23].toString();
                             selectedList.add(label23);
@@ -1829,6 +1930,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                   listFinish.add(selectedCount1);
                                   listFinish.add(selectedCount2);
                                   if (listFinish.length == 24) {
+                                    timeStop();
                                     newGame();
                                   }
                                   enableButtonListTrue();
